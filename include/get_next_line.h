@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/17 16:54:36 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/05 19:53:17 by dbendaou         ###   ########.fr       */
+/*   Created: 2016/01/11 18:01:05 by dbendaou          #+#    #+#             */
+/*   Updated: 2016/10/05 20:23:21 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 4096
 
-int		main(int ac, char **av, char **env)
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdio.h>
+# include "../libft/libft.h"
+
+typedef struct	s_file
 {
-	t_env	*z_env;
-	int		i;
+	int			ret;
+	char		buff[BUFF_SIZE];
+	char		*tmp;
+}				t_file;
 
+int				get_next_line(int const fd, char **line);
 
-	i = 0;
-	if (ac == 1 && !av[1])
-	{
-		if (env[0] == NULL)
-			ft_exec(NULL);
-		else
-		{
-			z_env = ft_env(env);
-			ft_exec(z_env);
-		}
-	}
-	else
-		ft_putstr(E_usage);
-	return (0);
-}
+#endif
