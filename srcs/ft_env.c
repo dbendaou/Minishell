@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:23:16 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/07 17:41:15 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/07 18:24:58 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,6 @@ t_env	*new_maill(char *name, char *value)
 		new->value = NULL;
 	new->next = NULL;
 	return (new);
-}
-
-char	*get_logname(t_env *env)
-{
-	t_env	*logname;
-	char	*tmp;
-	char	*tmpp;
-
-	logname = env;
-	while (logname)
-	{
-		if (ft_strncmp(logname->name, "LOGNAME", 7) == 0)
-		{
-			tmp = ft_strjoin("\033[34;1m", logname->value);
-			tmpp = ft_strjoin(tmp, "$> \033[36;1m");
-			free(tmp);
-			return (tmpp);
-		}
-		logname = logname->next;
-	}
-	return ("NO_USER$> ");
 }
 
 int		lstlen(t_env *env)

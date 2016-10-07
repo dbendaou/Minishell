@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/07 17:42:32 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/07 18:38:56 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ void	ft_exec(t_env *env, char **cmd)
 	{
 		i = 0;
 		envclean = get_envclean(env);
-		ft_putstr(get_logname(env));
-		get_next_line(0, cmd);
-		ft_putstr("\033[0m");
+		ft_prompt(env, cmd);
 		if (cmd)
 		{
 			ft_compare(cmd);
@@ -53,9 +51,7 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 	{
 		father = fork();
 		if (father == 0)
-		{
 			execve(buffer, args, envclean);
-		}
 		else
 			wait(NULL);
 	}
@@ -76,45 +72,12 @@ void	ft_compare(char **cmd)
 }
 
 /*
-** Cherche le Path et si env-i le fourni
+** Affiche le prompt et la couleur
 */
 
-char	*get_path(t_env *env)
+void	ft_prompt(t_env *env, char **cmd)
 {
-	t_env	*path;
-
-	path = env;
-	while (path)
-	{
-		if (ft_strncmp(path->name, "PATH", 4) == 0)
-			return (path->value);
-		path = path->next;
-	}
-	return ("/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin");
-}
-
-/*
-** Remets l'env au formar char **
-*/
-
-char	**get_envclean(t_env *env)
-{
-	t_env	*tmp;
-	char	**tmpp;
-	char	*tmpenv;
-	int		i;
-
-	tmp = env;
-	i = 0;
-	tmpp = (char **)malloc(sizeof(char *) * (lstlen(env) + 1));
-	while (tmp)
-	{
-		tmpenv = ft_strjoin(tmp->name, "=");
-		tmpp[i] = ft_strjoin(tmpenv, tmp->value);
-		ft_strdel(&tmpenv);
-		i++;
-		tmp = tmp->next;
-	}
-	tmpp[i] = NULL;
-	return (tmpp);
+	ft_putstr(get_logname(env));
+	get_next_line(0, cmd);
+	ft_putstr("\033[0m");
 }
