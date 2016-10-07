@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/05 20:24:35 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/07 17:37:59 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,13 @@ t_env	*ft_env(char **env);
 void	classic_append(t_env *to_add, t_env *begin);
 t_env	*new_maill(char *name, char *value);
 char	*get_logname(t_env *env);
+int			lstlen(t_env *env);
 
 /*	ft_exec	*/
-void	ft_exec(t_env *env);
+void	ft_exec(t_env *env,char **cmd);
+int		ft_execmd(char **args, char *mix, int i, char **envclean);
+void	ft_compare(char **cmd);
+char	*get_path(t_env *env);
+char	**get_envclean(t_env *env);
 
 #endif

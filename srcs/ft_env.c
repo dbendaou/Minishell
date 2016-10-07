@@ -6,11 +6,15 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:23:16 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/05 19:32:34 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/07 17:41:15 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Recupere l'environnement et le mets dams la structure t_env
+*/
 
 t_env	*ft_env(char **env)
 {
@@ -83,4 +87,19 @@ char	*get_logname(t_env *env)
 		logname = logname->next;
 	}
 	return ("NO_USER$> ");
+}
+
+int		lstlen(t_env *env)
+{
+	int		i;
+	t_env	*tmp;
+
+	tmp = env;
+	i = 0;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
 }
