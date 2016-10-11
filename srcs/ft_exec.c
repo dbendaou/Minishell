@@ -6,11 +6,15 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/07 18:38:56 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/10 17:41:43 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	Split la commande au bon format
+*/
 
 void	ft_exec(t_env *env, char **cmd)
 {
@@ -23,6 +27,7 @@ void	ft_exec(t_env *env, char **cmd)
 	while (1)
 	{
 		i = 0;
+		signal(SIGINT, ft_signal);
 		envclean = get_envclean(env);
 		ft_prompt(env, cmd);
 		if (cmd)
@@ -36,6 +41,10 @@ void	ft_exec(t_env *env, char **cmd)
 		}
 	}
 }
+
+/*
+**	Verifie le chemin d'acces de la commande et si executable
+*/
 
 int		ft_execmd(char **args, char *mix, int i, char **envclean)
 {
@@ -60,7 +69,7 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 }
 
 /*
-** Compare si la cmd appelle un build-in
+**	Compare si la cmd appelle un build-in
 */
 
 void	ft_compare(char **cmd)
@@ -72,7 +81,7 @@ void	ft_compare(char **cmd)
 }
 
 /*
-** Affiche le prompt et la couleur
+**	Affiche le prompt et la couleur
 */
 
 void	ft_prompt(t_env *env, char **cmd)

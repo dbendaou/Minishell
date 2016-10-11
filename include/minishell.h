@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/07 18:38:26 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/10 17:35:00 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ void	ft_prompt(t_env *env, char **cmd);
 char	*get_path(t_env *env);
 char	**get_envclean(t_env *env);
 char	*get_logname(t_env *env);
+
+/*	ft_signal.c	*/
+void	ft_signal();
 
 #endif

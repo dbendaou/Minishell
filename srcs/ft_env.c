@@ -6,14 +6,14 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:23:16 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/07 18:24:58 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/10 16:24:29 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** Recupere l'environnement et le mets dams la structure t_env
+** Recupere l'environnement et le mets dans la structure t_env
 */
 
 t_env	*ft_env(char **env)
