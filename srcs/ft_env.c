@@ -6,14 +6,14 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:23:16 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/07 17:41:15 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/12 21:05:15 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** Recupere l'environnement et le mets dams la structure t_env
+** Recupere l'environnement et le mets dans la structure t_env
 */
 
 t_env	*ft_env(char **env)
@@ -36,6 +36,10 @@ t_env	*ft_env(char **env)
 	return (z_env);
 }
 
+/*
+**	Fonctions de parcours de liste
+*/
+
 void	classic_append(t_env *to_add, t_env *begin)
 {
 	t_env	*tmp;
@@ -50,6 +54,10 @@ void	classic_append(t_env *to_add, t_env *begin)
 		tmp->next = to_add;
 	}
 }
+
+/*
+**	Cree un nouveau maillon dans la chaine
+*/
 
 t_env	*new_maill(char *name, char *value)
 {
@@ -68,26 +76,9 @@ t_env	*new_maill(char *name, char *value)
 	return (new);
 }
 
-char	*get_logname(t_env *env)
-{
-	t_env	*logname;
-	char	*tmp;
-	char	*tmpp;
-
-	logname = env;
-	while (logname)
-	{
-		if (ft_strncmp(logname->name, "LOGNAME", 7) == 0)
-		{
-			tmp = ft_strjoin("\033[34;1m", logname->value);
-			tmpp = ft_strjoin(tmp, "$> \033[36;1m");
-			free(tmp);
-			return (tmpp);
-		}
-		logname = logname->next;
-	}
-	return ("NO_USER$> ");
-}
+/*
+**	Mesure la taille de la liste
+*/
 
 int		lstlen(t_env *env)
 {

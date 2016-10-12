@@ -6,38 +6,47 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/07 17:42:32 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/12 22:56:18 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+**	Split la commande au bon format
+*/
+
 void	ft_exec(t_env *env, char **cmd)
 {
 	char	**args;
-	char	*text;
 	char	**mix;
 	char	**envclean;
 	int		i;
+	int 	done;
 
 	while (1)
 	{
 		i = 0;
+		done = 0;
+		signal(SIGINT, ft_signal);
 		envclean = get_envclean(env);
-		ft_putstr(get_logname(env));
-		get_next_line(0, cmd);
-		ft_putstr("\033[0m");
-		if (cmd)
+		*cmd = NULL;
+		ft_prompt(env, cmd);
+		if (*cmd)
 		{
-			ft_compare(cmd);
+			if (ft_compare(cmd, env) == 1)
+				done = 1;
 			args = ft_strsplit(*cmd, ' ');
-			text = get_path(env);
-			mix = ft_strsplit(text, ':');
-			while (mix[i])
+			mix = ft_strsplit(get_path(env), ':');
+			while (mix[i] && done == 0)
 				i = ft_execmd(args, *mix, i, envclean);
 		}
 	}
 }
+
+/*
+**	Verifie le chemin d'acces de la commande et si elle est executable
+*/
 
 int		ft_execmd(char **args, char *mix, int i, char **envclean)
 {
@@ -53,9 +62,7 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 	{
 		father = fork();
 		if (father == 0)
-		{
 			execve(buffer, args, envclean);
-		}
 		else
 			wait(NULL);
 	}
@@ -64,57 +71,45 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 }
 
 /*
-** Compare si la cmd appelle un build-in
+**	Compare si la cmd appelle un build-in
 */
 
-void	ft_compare(char **cmd)
+int		ft_compare(char **cmd, t_env *env)
 {
 	if (ft_strcmp("exit", *cmd) == 0)
+	{
+		ft_putstr("Good bye ..\n");
 		exit(1);
+	}
 	if (ft_strncmp("cd", *cmd, 2) == 0)
-		exit(0);
+	{
+		get_pwd(env);
+		return (1);
+	}
+	/*if (ft_strncmp("setenv", *cmd, 6) == 0)
+		set_env(env, cmd);
+	if (ft_strncmp("unsetenv", *cmd, 8) == 0)
+		unset_env(env);*/
+	if (ft_strcmp("env", *cmd) == 0)
+	{
+		my_env(env);
+		return (1);
+	}
+	if (ft_strncmp("echo", *cmd, 4) == 0)
+	{
+		ft_echo(cmd, env);
+		return (1);
+	}
+	return (0);
 }
 
 /*
-** Cherche le Path et si env-i le fourni
+**	Affiche le prompt et la couleur
 */
 
-char	*get_path(t_env *env)
+void	ft_prompt(t_env *env, char **cmd)
 {
-	t_env	*path;
-
-	path = env;
-	while (path)
-	{
-		if (ft_strncmp(path->name, "PATH", 4) == 0)
-			return (path->value);
-		path = path->next;
-	}
-	return ("/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin");
-}
-
-/*
-** Remets l'env au formar char **
-*/
-
-char	**get_envclean(t_env *env)
-{
-	t_env	*tmp;
-	char	**tmpp;
-	char	*tmpenv;
-	int		i;
-
-	tmp = env;
-	i = 0;
-	tmpp = (char **)malloc(sizeof(char *) * (lstlen(env) + 1));
-	while (tmp)
-	{
-		tmpenv = ft_strjoin(tmp->name, "=");
-		tmpp[i] = ft_strjoin(tmpenv, tmp->value);
-		ft_strdel(&tmpenv);
-		i++;
-		tmp = tmp->next;
-	}
-	tmpp[i] = NULL;
-	return (tmpp);
+	ft_putstr(get_logname(env));
+	get_next_line(0, cmd);
+	ft_putstr("\033[0m");
 }

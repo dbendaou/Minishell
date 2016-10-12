@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/07 17:37:59 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/12 19:09:42 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,34 @@ typedef struct		s_env
 
 # define LEN_BUF	512
 # define FIRST	"\033[33mMinishell\nTaper \"exit\" pour quitter.\033[0m\n"
-# define E_CMD	"command not found \n"
+# define E_CMD	": command not found \n"
 # define E_usage "USAGE :\n./minishell\n"
 
 /*	ft_env	*/ 
 t_env	*ft_env(char **env);
 void	classic_append(t_env *to_add, t_env *begin);
 t_env	*new_maill(char *name, char *value);
-char	*get_logname(t_env *env);
-int			lstlen(t_env *env);
+int		lstlen(t_env *env);
 
 /*	ft_exec	*/
 void	ft_exec(t_env *env,char **cmd);
 int		ft_execmd(char **args, char *mix, int i, char **envclean);
-void	ft_compare(char **cmd);
+int		ft_compare(char **cmd, t_env *env);
+void	ft_prompt(t_env *env, char **cmd);
+
+/*	get.c	*/
 char	*get_path(t_env *env);
 char	**get_envclean(t_env *env);
+char	*get_logname(t_env *env);
+char 	*get_pwd(t_env *env);
+
+/*	ft_signal.c	*/
+void	ft_signal();
+
+/*	env.c 	*/
+void	my_env(t_env *env);
+
+/* 	ft_echo.c */
+void	ft_echo(char **cmd, t_env *env);
 
 #endif
