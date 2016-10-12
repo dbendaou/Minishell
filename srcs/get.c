@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/07 18:24:08 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/07 18:25:38 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/12 18:23:12 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,25 @@ char	**get_envclean(t_env *env)
 	}
 	tmpp[i] = NULL;
 	return (tmpp);
+}
+
+/*
+**	Cherche le current directory
+*/
+
+char	*get_pwd(t_env *env)
+{
+	t_env	*pwd;
+
+	pwd = env;
+	while (pwd)
+	{
+		if (ft_strncmp(pwd->name, "PWD", 4) == 0)
+		{
+			ft_putstr(pwd->value);
+			return (pwd->value);
+		}
+		pwd = pwd->next;
+	}
+	return (NULL);
 }

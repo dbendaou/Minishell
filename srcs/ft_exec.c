@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/10 17:41:43 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/12 22:56:18 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,33 @@
 void	ft_exec(t_env *env, char **cmd)
 {
 	char	**args;
-	char	*text;
 	char	**mix;
 	char	**envclean;
 	int		i;
+	int 	done;
 
 	while (1)
 	{
 		i = 0;
+		done = 0;
 		signal(SIGINT, ft_signal);
 		envclean = get_envclean(env);
+		*cmd = NULL;
 		ft_prompt(env, cmd);
-		if (cmd)
+		if (*cmd)
 		{
-			ft_compare(cmd);
+			if (ft_compare(cmd, env) == 1)
+				done = 1;
 			args = ft_strsplit(*cmd, ' ');
-			text = get_path(env);
-			mix = ft_strsplit(text, ':');
-			while (mix[i])
+			mix = ft_strsplit(get_path(env), ':');
+			while (mix[i] && done == 0)
 				i = ft_execmd(args, *mix, i, envclean);
 		}
 	}
 }
 
 /*
-**	Verifie le chemin d'acces de la commande et si executable
+**	Verifie le chemin d'acces de la commande et si elle est executable
 */
 
 int		ft_execmd(char **args, char *mix, int i, char **envclean)
@@ -72,12 +74,33 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 **	Compare si la cmd appelle un build-in
 */
 
-void	ft_compare(char **cmd)
+int		ft_compare(char **cmd, t_env *env)
 {
 	if (ft_strcmp("exit", *cmd) == 0)
+	{
+		ft_putstr("Good bye ..\n");
 		exit(1);
+	}
 	if (ft_strncmp("cd", *cmd, 2) == 0)
-		exit(0);
+	{
+		get_pwd(env);
+		return (1);
+	}
+	/*if (ft_strncmp("setenv", *cmd, 6) == 0)
+		set_env(env, cmd);
+	if (ft_strncmp("unsetenv", *cmd, 8) == 0)
+		unset_env(env);*/
+	if (ft_strcmp("env", *cmd) == 0)
+	{
+		my_env(env);
+		return (1);
+	}
+	if (ft_strncmp("echo", *cmd, 4) == 0)
+	{
+		ft_echo(cmd, env);
+		return (1);
+	}
+	return (0);
 }
 
 /*
