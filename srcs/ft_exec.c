@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/12 22:56:18 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/13 03:39:49 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ int		ft_compare(char **cmd, t_env *env)
 		get_pwd(env);
 		return (1);
 	}
-	/*if (ft_strncmp("setenv", *cmd, 6) == 0)
+	if (ft_strncmp("setenv", *cmd, 6) == 0)
 		set_env(env, cmd);
-	if (ft_strncmp("unsetenv", *cmd, 8) == 0)
-		unset_env(env);*/
+	// if (ft_strncmp("unsetenv", *cmd, 8) == 0)
+	// 	unset_env(env);
 	if (ft_strcmp("env", *cmd) == 0)
 	{
 		my_env(env);
