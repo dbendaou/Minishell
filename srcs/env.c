@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/11 16:39:44 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 03:40:07 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/13 04:58:41 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,16 @@ void 	set_env(t_env *env, char **cmd)
 		}
 		classic_append(new_maill(tmpp[0], tmpp[1]), env);
 	}
+}
+
+/*
+**	Enleve une variable de l'environement
+*/
+
+void	unset_env(t_env **begin, char **cmd)
+{
+	char 	**tmp;
+
+	tmp = ft_strsplit(*cmd, ' ');
+	lst_del(tmp[1], begin);
 }

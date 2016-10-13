@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 03:39:49 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/13 04:58:17 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Split la commande au bon format
 */
 
-void	ft_exec(t_env *env, char **cmd)
+void	ft_exec(t_env **env, char **cmd)
 {
 	char	**args;
 	char	**mix;
@@ -29,15 +29,15 @@ void	ft_exec(t_env *env, char **cmd)
 		i = 0;
 		done = 0;
 		signal(SIGINT, ft_signal);
-		envclean = get_envclean(env);
+		envclean = get_envclean(*env);
 		*cmd = NULL;
-		ft_prompt(env, cmd);
+		ft_prompt(*env, cmd);
 		if (*cmd)
 		{
 			if (ft_compare(cmd, env) == 1)
 				done = 1;
 			args = ft_strsplit(*cmd, ' ');
-			mix = ft_strsplit(get_path(env), ':');
+			mix = ft_strsplit(get_path(*env), ':');
 			while (mix[i] && done == 0)
 				i = ft_execmd(args, *mix, i, envclean);
 		}
@@ -74,7 +74,7 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 **	Compare si la cmd appelle un build-in
 */
 
-int		ft_compare(char **cmd, t_env *env)
+int		ft_compare(char **cmd, t_env **env)
 {
 	if (ft_strcmp("exit", *cmd) == 0)
 	{
@@ -83,21 +83,21 @@ int		ft_compare(char **cmd, t_env *env)
 	}
 	if (ft_strncmp("cd", *cmd, 2) == 0)
 	{
-		get_pwd(env);
+		get_pwd(*env);
 		return (1);
 	}
 	if (ft_strncmp("setenv", *cmd, 6) == 0)
-		set_env(env, cmd);
-	// if (ft_strncmp("unsetenv", *cmd, 8) == 0)
-	// 	unset_env(env);
+		set_env(*env, cmd);
+	if (ft_strncmp("unsetenv", *cmd, 8) == 0)
+		unset_env(env, cmd);
 	if (ft_strcmp("env", *cmd) == 0)
 	{
-		my_env(env);
+		my_env(*env);
 		return (1);
 	}
 	if (ft_strncmp("echo", *cmd, 4) == 0)
 	{
-		ft_echo(cmd, env);
+		ft_echo(cmd, *env);
 		return (1);
 	}
 	return (0);
