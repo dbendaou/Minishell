@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 04:58:17 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/13 19:34:41 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_exec(t_env **env, char **cmd)
 {
 	char	**args;
 	char	**mix;
-	char	**envclean;
 	int		i;
 	int 	done;
 
@@ -29,7 +28,6 @@ void	ft_exec(t_env **env, char **cmd)
 		i = 0;
 		done = 0;
 		signal(SIGINT, ft_signal);
-		envclean = get_envclean(*env);
 		*cmd = NULL;
 		ft_prompt(*env, cmd);
 		if (*cmd)
@@ -39,7 +37,7 @@ void	ft_exec(t_env **env, char **cmd)
 			args = ft_strsplit(*cmd, ' ');
 			mix = ft_strsplit(get_path(*env), ':');
 			while (mix[i] && done == 0)
-				i = ft_execmd(args, *mix, i, envclean);
+				i = ft_execmd(args, *mix, i, get_envclean(*env));
 		}
 	}
 }

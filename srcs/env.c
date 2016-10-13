@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/11 16:39:44 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 04:58:41 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/13 21:22:02 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	my_env(t_env *env)
 	char	**tmp;
 	int		i;
 
+	tmp = NULL;
 	i = 0;
 	if (env != NULL)
 	{
@@ -32,6 +33,7 @@ void	my_env(t_env *env)
 			i++;
 		}
 	}
+	ft_strdel(tmp);
 }
 
 /*
@@ -55,10 +57,13 @@ void 	set_env(t_env *env, char **cmd)
 			if (ft_strcmp(e_tmp->name, tmpp[0]) == 0)
 			{
 				e_tmp->value = tmpp[1];
+				ft_strdel2(tmp, tmpp);
+				return ;
 			}
 			e_tmp = e_tmp->next;
 		}
 		classic_append(new_maill(tmpp[0], tmpp[1]), env);
+		ft_strdel2(tmp, tmpp);
 	}
 }
 
@@ -72,4 +77,19 @@ void	unset_env(t_env **begin, char **cmd)
 
 	tmp = ft_strsplit(*cmd, ' ');
 	lst_del(tmp[1], begin);
+}
+
+/*
+**	Creer l'environnement quand celui-ci est vide
+*/
+
+t_env	*my_env_i()
+{
+	t_env *tmp;
+	char **PATH = NULL;
+
+	PATH[0] = "dsjadsajdsajk";
+	tmp = NULL;
+	set_env(tmp, PATH);
+	return (tmp);
 }

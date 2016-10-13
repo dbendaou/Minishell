@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 05:02:48 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/13 21:23:26 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,12 @@ void	ft_signal();
 void	my_env(t_env *env);
 void 	set_env(t_env *env, char **cmd);
 void	unset_env(t_env **begin, char **cmd);
-
+t_env	*my_env_i();
 
 /* 	ft_echo.c */
 void	ft_echo(char **cmd, t_env *env);
+
+/*	del.c */
+void	ft_strdel2(char **as, char **as2);
 
 #endif

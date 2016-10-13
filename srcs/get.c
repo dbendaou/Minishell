@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/07 18:24:08 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/12 18:23:12 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/13 19:36:15 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*get_path(t_env *env)
 			return (path->value);
 		path = path->next;
 	}
-	return ("/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin");
+	return ("NULL");
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:23:16 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 05:00:04 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/13 20:57:50 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_env	*ft_env(char **env)
 		classic_append(new, z_env);
 		i++;
 	}
+	ft_strdel(tmp);
 	return (z_env);
 }
 
