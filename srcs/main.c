@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 16:54:36 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 19:47:01 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/14 01:19:46 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,17 @@
 int		main(int ac, char **av, char **env)
 {
 	t_env	*z_env;
-	t_env	**tmp;
-	int		i;
+	t_env	*tmp;
 	char	*cmd;
 
 	tmp = NULL;
 	z_env = NULL;
-	i = 0;
 	if (ac == 1 && !av[1])
 	{
 		if (env[0] == NULL)
 		{
-			
-			*tmp = my_env_i();
-			printf("salope\n");
-			ft_exec(tmp, &cmd);
+			z_env = my_env_i();
+			ft_exec(&z_env, &cmd);
 		}
 		else
 		{

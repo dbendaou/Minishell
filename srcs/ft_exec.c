@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 19:34:41 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/14 01:23:50 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_exec(t_env **env, char **cmd)
 		signal(SIGINT, ft_signal);
 		*cmd = NULL;
 		ft_prompt(*env, cmd);
-		if (*cmd)
+		if (*cmd != NULL)
 		{
 			if (ft_compare(cmd, env) == 1)
 				done = 1;

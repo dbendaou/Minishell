@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 21:23:26 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/14 01:17:54 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ typedef struct		s_env
 }					t_env;
 
 # define LEN_BUF	512
-# define FIRST	"\033[33mMinishell\nTaper \"exit\" pour quitter.\033[0m\n"
-# define E_CMD	": command not found \n"
-# define E_usage "USAGE :\n./minishell\n"
+# define FIRST		"\033[33mMinishell\nTaper \"exit\" pour quitter.\033[0m\n"
+# define E_CMD		": command not found \n"
+# define E_usage	"USAGE :\n./minishell\n"
+# define PATH		"/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 
 /*	ft_env	*/ 
 t_env	*ft_env(char **env);

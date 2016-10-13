@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/11 16:39:44 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 21:22:02 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/14 01:23:19 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,10 @@ void	unset_env(t_env **begin, char **cmd)
 
 t_env	*my_env_i()
 {
-	t_env *tmp;
-	char **PATH = NULL;
-
-	PATH[0] = "dsjadsajdsajk";
-	tmp = NULL;
-	set_env(tmp, PATH);
+	t_env	*tmp;
+	t_env	*new;
+	tmp = new_maill("PATH", PATH);
+	new = new_maill("SHLVL", "1");
+	classic_append(new, tmp);
 	return (tmp);
 }
