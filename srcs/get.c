@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/07 18:24:08 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 01:26:10 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/14 04:02:10 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_logname(t_env *env)
 }
 
 /*
-** Cherche le Path et si env-i le fourni
+** Cherche le Path sinon return une valeur bidon
 */
 
 char	*get_path(t_env *env)
@@ -52,7 +52,7 @@ char	*get_path(t_env *env)
 }
 
 /*
-** Remets l'env au formar char **
+** Remets l'env au format char **
 */
 
 char	**get_envclean(t_env *env)
@@ -78,7 +78,7 @@ char	**get_envclean(t_env *env)
 }
 
 /*
-**	Cherche le current directory
+**	Cherche le pwd dans l'env
 */
 
 char	*get_pwd(t_env *env)

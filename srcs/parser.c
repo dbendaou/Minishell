@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/12 17:52:58 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 03:52:28 by dbendaou         ###   ########.fr       */
+/*   Created: 2016/10/14 03:46:34 by dbendaou          #+#    #+#             */
+/*   Updated: 2016/10/14 03:52:25 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Built-in echo
+**	Return -1 si cmd contient que espace ou tab
 */
 
-void	ft_echo(char **cmd, t_env *env)
+int			ln_check(char *cmd)
 {
-	char	**echo;
-	int 	i;
-	t_env	*begin;
+	int		i;
 
-	begin = env;
 	i = 0;
-	echo = ft_strsplit(*cmd, ' ');
-	while (echo[i])
+	while (cmd[i])
 	{
-		while (env && env->next)
+		if (cmd[i] != ' ')
 		{
-			if (ft_strcmp((*(echo + i) + 1), env->name) == 0 \
-				&& echo[i][0] == '$')
-			{
-				ft_putstr(env->value);
-				ft_putchar(' ');
-			}
-			env = env->next;
+			if (cmd[i] != '\t')
+				return (0);
 		}
 		i++;
-		env = begin;		
 	}
-	ft_putchar('\n');	
+	return (-1);
 }

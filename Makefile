@@ -6,7 +6,7 @@
 #    By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/10 16:16:05 by dbendaou          #+#    #+#              #
-#    Updated: 2016/10/13 21:27:22 by dbendaou         ###   ########.fr        #
+#    Updated: 2016/10/14 03:47:19 by dbendaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC_NAME	= 	main.c \
 				env.c \
 				ft_echo.c \
 				del.c \
+				parser.c \
 				get_next_line.c
 
 OBJ_NAME	=	$(SRC_NAME:.c=.o)

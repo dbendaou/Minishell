@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 02:30:16 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/14 04:12:45 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 	ft_strcat(buffer, &mix[i]);
 	ft_strcat(buffer, "/");
 	ft_strcat(buffer, args[0]);
+	ft_putstr(args[0]);
 	if (stat(buffer, &filestat) == 0 && filestat.st_mode & S_IXUSR)
 	{
 		father = fork();
@@ -69,14 +70,14 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 }
 
 /*
-**	Compare si la cmd appelle un build-in
+**	Compare si la cmd appelle un built-in
 */
 
 int		ft_compare(char **cmd, t_env **env)
 {
 	if (ft_strcmp("exit", *cmd) == 0)
 	{
-		ft_putstr("Good bye ..\n");
+		ft_putstr("\033[33mGood bye ...\033[0m\n");
 		exit(1);
 	}
 	if (ft_strncmp("cd", *cmd, 2) == 0)
@@ -104,6 +105,10 @@ int		ft_compare(char **cmd, t_env **env)
 		ft_echo(cmd, *env);
 		return (1);
 	}
+	if (ft_strcmp("./minishell", *cmd) == 0)
+	{
+
+	}
 	return (0);
 }
 
@@ -116,25 +121,4 @@ void	ft_prompt(t_env *env, char **cmd)
 	ft_putstr(get_logname(env));
 	get_next_line(0, cmd);
 	ft_putstr("\033[0m");
-}
-
-/*
-**	LN_CHECK : checke la validite dune ligne = pas que tab et space
-*/
-
-int			ln_check(char *cmd)
-{
-	int		i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] != ' ')
-		{
-			if (cmd[i] != '\t')
-				return (0);
-		}
-		i++;
-	}
-	return (-1);
 }
