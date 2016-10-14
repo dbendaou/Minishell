@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/11 16:39:44 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 01:23:19 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/14 04:47:03 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,20 @@ void 	set_env(t_env *env, char **cmd)
 	e_tmp = env;
 	tmp = ft_strsplit(*cmd, ' ');
 	tmp++;
-	tmpp = ft_strsplit(*tmp, '=');
-	if (tmpp[1])
+	if ((tmpp = ft_strsplit(*tmp, '=')) && tmpp[1])
 	{
-		while (e_tmp)
-		{
-			if (ft_strcmp(e_tmp->name, tmpp[0]) == 0)
+			while (e_tmp)
 			{
-				e_tmp->value = tmpp[1];
-				ft_strdel2(tmp, tmpp);
-				return ;
+				if (ft_strcmp(e_tmp->name, tmpp[0]) == 0)
+				{
+					e_tmp->value = tmpp[1];
+					ft_strdel2(tmp, tmpp);
+					return ;
+				}
+				e_tmp = e_tmp->next;
 			}
-			e_tmp = e_tmp->next;
-		}
-		classic_append(new_maill(tmpp[0], tmpp[1]), env);
-		ft_strdel2(tmp, tmpp);
+			classic_append(new_maill(tmpp[0], tmpp[1]), env);
+			ft_strdel2(tmp, tmpp);
 	}
 }
 
@@ -76,7 +75,10 @@ void	unset_env(t_env **begin, char **cmd)
 	char 	**tmp;
 
 	tmp = ft_strsplit(*cmd, ' ');
-	lst_del(tmp[1], begin);
+	if (tmp[1])
+	{
+		lst_del(tmp[1], begin);
+	}
 }
 
 /*
