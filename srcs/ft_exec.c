@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 01:23:50 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/14 02:30:16 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	ft_exec(t_env **env, char **cmd)
 	{
 		i = 0;
 		done = 0;
-		signal(SIGINT, ft_signal);
+		// signal(SIGINT, ft_signal);
 		*cmd = NULL;
 		ft_prompt(*env, cmd);
-		if (*cmd != NULL)
+		if (ln_check(*cmd) == 0)
 		{
 			if (ft_compare(cmd, env) == 1)
 				done = 1;
@@ -85,9 +85,15 @@ int		ft_compare(char **cmd, t_env **env)
 		return (1);
 	}
 	if (ft_strncmp("setenv", *cmd, 6) == 0)
+	{
 		set_env(*env, cmd);
+		return (1);
+	}
 	if (ft_strncmp("unsetenv", *cmd, 8) == 0)
+	{
 		unset_env(env, cmd);
+		return (1);
+	}
 	if (ft_strcmp("env", *cmd) == 0)
 	{
 		my_env(*env);
@@ -110,4 +116,25 @@ void	ft_prompt(t_env *env, char **cmd)
 	ft_putstr(get_logname(env));
 	get_next_line(0, cmd);
 	ft_putstr("\033[0m");
+}
+
+/*
+**	LN_CHECK : checke la validite dune ligne = pas que tab et space
+*/
+
+int			ln_check(char *cmd)
+{
+	int		i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] != ' ')
+		{
+			if (cmd[i] != '\t')
+				return (0);
+		}
+		i++;
+	}
+	return (-1);
 }

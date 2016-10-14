@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 01:17:54 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/14 02:29:28 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_exec(t_env **env,char **cmd);
 int		ft_execmd(char **args, char *mix, int i, char **envclean);
 int		ft_compare(char **cmd, t_env **env);
 void	ft_prompt(t_env *env, char **cmd);
+int		ln_check(char *cmd);
 
 /*	get.c	*/
 char	*get_path(t_env *env);
