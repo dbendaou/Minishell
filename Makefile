@@ -6,7 +6,7 @@
 #    By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/10 16:16:05 by dbendaou          #+#    #+#              #
-#    Updated: 2016/10/14 03:47:19 by dbendaou         ###   ########.fr        #
+#    Updated: 2016/10/19 19:06:11 by dbendaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ SRC_NAME	= 	main.c \
 				ft_env.c \
 				ft_exec.c \
 				get.c \
-				ft_sig.c \
 				env.c \
 				ft_echo.c \
 				del.c \

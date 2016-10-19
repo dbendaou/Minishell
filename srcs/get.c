@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/07 18:24:08 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 04:02:10 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/19 19:07:33 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,19 @@ char	**get_envclean(t_env *env)
 }
 
 /*
-**	Cherche le pwd dans l'env
+**	Cherche le maillon designe par name
 */
 
-char	*get_pwd(t_env *env)
+t_env	*get_env(char *name, t_env *begin)
 {
-	t_env	*pwd;
+	t_env		*tmp;
 
-	pwd = env;
-	while (pwd)
+	tmp = begin;
+	while (tmp)
 	{
-		if (ft_strncmp(pwd->name, "PWD", 4) == 0)
-		{
-			ft_putstr(pwd->value);
-			return (pwd->value);
-		}
-		pwd = pwd->next;
+		if (tmp && ft_strcmp(name, tmp->name) == 0)
+			return (tmp);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }

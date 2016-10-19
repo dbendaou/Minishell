@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/19 15:22:21 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/19 19:10:49 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,23 @@ void	ft_exec(t_env **env, char **cmd)
 	int		i;
 	int		done;
 
+	shlvl_plus(env);
 	while (1)
 	{
 		i = 0;
 		done = 0;
-		// signal(SIGINT, ft_signal);
 		*cmd = NULL;
 		ft_prompt(*env, cmd);
 		if (ln_check(*cmd) == 0)
 		{
-			if (ft_compare(cmd, env) == 1)
-				done = 1;
 			args = ft_strsplit(*cmd, ' ');
 			mix = ft_strsplit(get_path(*env), ':');
-			while (mix[i] && done == 0)
-				i = ft_execmd(args, *mix, i, get_envclean(*env));
+			if (ft_execmd(args, *mix, i, get_envclean(*env)) == 0\
+				&& ft_compare(cmd, env) == 0)
+			{
+				ft_putstr(E_CMD);
+				ft_putendl(*cmd);
+			}
 		}
 	}
 }
@@ -52,20 +54,26 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 	struct stat	filestat;
 	pid_t		father;
 
-	ft_bzero(buffer, LEN_BUF);
-	ft_strcat(buffer, &mix[i]);
-	ft_strcat(buffer, "/");
-	ft_strcat(buffer, args[0]);
-	if (stat(buffer, &filestat) == 0 && filestat.st_mode & S_IXUSR)
+	while (mix[i])
 	{
-		father = fork();
-		if (father == 0)
-			execve(buffer, args, envclean);
-		else
-			wait(NULL);
+		ft_bzero(buffer, LEN_BUF);
+		ft_strcat(buffer, &mix[i]);
+		ft_strcat(buffer, "/");
+		ft_strcat(buffer, args[0]);
+		if (stat(buffer, &filestat) == 0 && filestat.st_mode & S_IXUSR)
+		{
+			father = fork();
+			if (father == 0)
+			{
+				execve(buffer, args, envclean);
+			}
+			else
+				wait(NULL);
+			return (1);
+		}
+		i++;
 	}
-	i++;
-	return (i);
+	return (0);
 }
 
 /*
@@ -81,34 +89,44 @@ int		ft_compare(char **cmd, t_env **env)
 	}
 	if (ft_strncmp("cd", *cmd, 2) == 0)
 	{
-		get_pwd(*env);
 		return (1);
 	}
 	if (ft_strncmp("setenv", *cmd, 6) == 0)
-	{
-		set_env(*env, cmd);
-		return (1);
-	}
+		return (set_env(*env, cmd));
 	if (ft_strncmp("unsetenv", *cmd, 8) == 0)
-	{
-		unset_env(env, cmd);
-		return (1);
-	}
+		return (unset_env(env, cmd));
 	if (ft_strcmp("env", *cmd) == 0)
-	{
-		my_env(*env);
-		return (1);
-	}
+		return (my_env(*env));
 	if (ft_strncmp("echo", *cmd, 4) == 0)
+		return (ft_echo(cmd, *env));
+	if (ft_strncmp("./minishell", *cmd, 11) == 0)
+		return (executable(cmd, env));
+	return (0);
+}
+
+/*
+**	Execute ./minishell
+*/
+
+int		executable(char **cmd, t_env **env)
+{
+	pid_t	father;
+
+	if (ft_strcmp("./minishell", *cmd) != 0)
+		ft_putstr(E_USAGE);
+	else
 	{
-		ft_echo(cmd, *env);
+		father = fork();
+		if (father == 0)
+		{
+			execve("./minishell", cmd, get_envclean(*env));
+		}
+		else
+			wait(NULL);
 		return (1);
 	}
-	if (ft_strcmp("./minishell", *cmd) == 0)
-	{
-
-	}
-	return (0);
+	ft_strdel(cmd);
+	return (1);
 }
 
 /*
@@ -120,4 +138,6 @@ void	ft_prompt(t_env *env, char **cmd)
 	ft_putstr(get_logname(env));
 	get_next_line(0, cmd);
 	ft_putstr("\033[0m");
+	if (ln_check(*cmd) == 0)
+		return ;
 }
