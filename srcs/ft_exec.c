@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/19 19:10:49 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/19 19:51:43 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,23 @@ void	ft_exec(t_env **env, char **cmd)
 	char	**args;
 	char	**mix;
 	int		i;
-	int		done;
 
 	shlvl_plus(env);
 	while (1)
 	{
 		i = 0;
-		done = 0;
 		*cmd = NULL;
 		ft_prompt(*env, cmd);
 		if (ln_check(*cmd) == 0)
 		{
 			args = ft_strsplit(*cmd, ' ');
 			mix = ft_strsplit(get_path(*env), ':');
-			if (ft_execmd(args, *mix, i, get_envclean(*env)) == 0\
-				&& ft_compare(cmd, env) == 0)
-			{
-				ft_putstr(E_CMD);
-				ft_putendl(*cmd);
-			}
+			if (ft_compare(cmd, env) == 0)
+				if (ft_execmd(args, *mix, i, get_envclean(*env)) == 0)
+				{
+					ft_putstr(E_CMD);
+					ft_putendl(*cmd);
+				}
 		}
 	}
 }
@@ -89,6 +87,7 @@ int		ft_compare(char **cmd, t_env **env)
 	}
 	if (ft_strncmp("cd", *cmd, 2) == 0)
 	{
+		cd(cmd, *env);
 		return (1);
 	}
 	if (ft_strncmp("setenv", *cmd, 6) == 0)

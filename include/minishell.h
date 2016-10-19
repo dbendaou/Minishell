@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/19 19:05:59 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/19 19:32:03 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,37 @@
 # define PATH		"/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 
 /*
+**	Defines pour le built-in cd
+*/
+
+/* cd erreurs */
+
+# define E_PATH 1
+# define ME_PATH "cd: no such file or directory: "
+
+# define E_STRING 2
+# define ME_STRING "cd: string not in pwd: "
+
+# define E_ARGS 4
+# define ME_ARGS "cd: too many arguments\n"
+
+# define E_NO_OPWD 8
+# define ME_NO_OPWD "cd: OLDPWD not set\n"
+
+# define E_NO_DIR 16
+# define ME_NO_DIR "cd: not a directory: "
+
+# define E_NO_RGT 32
+# define ME_NO_RGT "cd: permisson denied: "
+
+/* cd targets */
+
+# define P_HOME "/Users/dbendaou"
+# define OPN_HOME 1
+
+# define OPN_PREV 2
+
+/*
 **		Structure ou est stocke l'environnement
 */
 typedef struct		s_env
@@ -54,7 +85,7 @@ typedef struct		s_env
 }					t_env;
 
 /*
-**		ft_env
+**		ft_env.c
 */
 
 t_env				*ft_env(char **env);
@@ -64,7 +95,7 @@ void				lst_del(char *name, t_env **begin);
 int					lstlen(t_env *env);
 
 /*
-**		ft_exec
+**		ft_exec.c
 */
 void				ft_exec(t_env **env, char **cmd);
 int					ft_execmd(char **args, char *mix, int i, char **envclean);
@@ -104,7 +135,20 @@ void				ft_strdel2(char **as, char **as2);
 /*
 **		parser.c
 */
+
 int					ln_check(char *cmd);
+
+
+/*
+**		cd.c
+*/
+int					cd(char **cmd, t_env *env);
+
+/*
+**		cd2.c
+*/
+int					cd_error(char *path, int errnb);
+int					edit_env(t_env *env);
 
 /*
 **********************
