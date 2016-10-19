@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/11 15:26:45 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/19 19:36:23 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/19 20:14:52 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,7 @@ int		cd(char **cmd, t_env *env)
 {
 	int		ret;
 	char 	**args;
-	int i = 0;
-	while (cmd[i]) {
-		printf("%s\n", cmd[i]);
-		i++;
-	}
+
 	args = ft_strsplit(*cmd, ' ');
 	if (ft_tablen(args) == 3)
 		change_cdstr(args);
