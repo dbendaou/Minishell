@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:23:16 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/13 20:57:50 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/19 15:12:44 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ t_env	*new_maill(char *name, char *value)
 **	Supprime un maillon de la chaine
 */
 
-void 	lst_del(char *name, t_env **begin)
+void	lst_del(char *name, t_env **begin)
 {
-	t_env 	*tmp;
-	t_env 	*tmprev;
+	t_env	*tmp;
+	t_env	*tmprev;
 
 	tmp = *begin;
 	tmprev = *begin;

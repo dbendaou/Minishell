@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 04:12:45 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/19 15:22:21 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_exec(t_env **env, char **cmd)
 	char	**args;
 	char	**mix;
 	int		i;
-	int 	done;
+	int		done;
 
 	while (1)
 	{
@@ -43,7 +43,7 @@ void	ft_exec(t_env **env, char **cmd)
 }
 
 /*
-**	Verifie le chemin d'acces de la commande et si elle est executable
+**	Verifie le chemin d'acces de la commande et l'execute
 */
 
 int		ft_execmd(char **args, char *mix, int i, char **envclean)
@@ -56,7 +56,6 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 	ft_strcat(buffer, &mix[i]);
 	ft_strcat(buffer, "/");
 	ft_strcat(buffer, args[0]);
-	ft_putstr(args[0]);
 	if (stat(buffer, &filestat) == 0 && filestat.st_mode & S_IXUSR)
 	{
 		father = fork();

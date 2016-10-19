@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/11 16:39:44 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 04:47:03 by dbendaou         ###   ########.fr       */
+/*   Created: 2016/10/19 15:14:40 by dbendaou          #+#    #+#             */
+/*   Updated: 2016/10/19 15:15:50 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	my_env(t_env *env)
 **	Ajoute une variable a l'environement
 */
 
-void 	set_env(t_env *env, char **cmd)
+void	set_env(t_env *env, char **cmd)
 {
 	char	**tmp;
-	char 	**tmpp;
+	char	**tmpp;
 	t_env	*e_tmp;
 
 	e_tmp = env;
@@ -51,18 +51,18 @@ void 	set_env(t_env *env, char **cmd)
 	tmp++;
 	if ((tmpp = ft_strsplit(*tmp, '=')) && tmpp[1])
 	{
-			while (e_tmp)
+		while (e_tmp)
+		{
+			if (ft_strcmp(e_tmp->name, tmpp[0]) == 0)
 			{
-				if (ft_strcmp(e_tmp->name, tmpp[0]) == 0)
-				{
-					e_tmp->value = tmpp[1];
-					ft_strdel2(tmp, tmpp);
-					return ;
-				}
-				e_tmp = e_tmp->next;
+				e_tmp->value = tmpp[1];
+				ft_strdel2(tmp, tmpp);
+				return ;
 			}
-			classic_append(new_maill(tmpp[0], tmpp[1]), env);
-			ft_strdel2(tmp, tmpp);
+			e_tmp = e_tmp->next;
+		}
+		classic_append(new_maill(tmpp[0], tmpp[1]), env);
+		ft_strdel2(tmp, tmpp);
 	}
 }
 
@@ -72,7 +72,7 @@ void 	set_env(t_env *env, char **cmd)
 
 void	unset_env(t_env **begin, char **cmd)
 {
-	char 	**tmp;
+	char	**tmp;
 
 	tmp = ft_strsplit(*cmd, ' ');
 	if (tmp[1])
@@ -89,6 +89,7 @@ t_env	*my_env_i()
 {
 	t_env	*tmp;
 	t_env	*new;
+
 	tmp = new_maill("PATH", PATH);
 	new = new_maill("SHLVL", "1");
 	classic_append(new, tmp);
