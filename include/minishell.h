@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/19 15:10:00 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/19 19:05:59 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 **		Erreurs
 */
 
-# define E_CMD		": command not found \n"
-# define E_USAGE	"USAGE :\n./minishell\n"
+# define E_CMD		"minishell: command not found: "
+# define E_USAGE	"USAGE: ./minishell\n"
 
 /*
 **		Environnement
@@ -69,6 +69,7 @@ int					lstlen(t_env *env);
 void				ft_exec(t_env **env, char **cmd);
 int					ft_execmd(char **args, char *mix, int i, char **envclean);
 int					ft_compare(char **cmd, t_env **env);
+int					executable(char **cmd, t_env **env);
 void				ft_prompt(t_env *env, char **cmd);
 int					ln_check(char *cmd);
 
@@ -79,25 +80,21 @@ int					ln_check(char *cmd);
 char				*get_path(t_env *env);
 char				**get_envclean(t_env *env);
 char				*get_logname(t_env *env);
-char				*get_pwd(t_env *env);
-
-/*
-**		ft_signal.c
-*/
-void				ft_signal();
+t_env				*get_env(char *name, t_env *begin);
 
 /*
 **		env.c
 */
-void				my_env(t_env *env);
-void				set_env(t_env *env, char **cmd);
-void				unset_env(t_env **begin, char **cmd);
+int					my_env(t_env *env);
+int					set_env(t_env *env, char **cmd);
+int					unset_env(t_env **begin, char **cmd);
 t_env				*my_env_i();
+int					shlvl_plus(t_env **env);
 
 /*
 **		ft_echo.c
 */
-void				ft_echo(char **cmd, t_env *env);
+int					ft_echo(char **cmd, t_env *env);
 
 /*
 **		del.c

@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/12 17:52:58 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/14 03:52:28 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/19 19:05:14 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 **	Built-in echo
 */
 
-void	ft_echo(char **cmd, t_env *env)
+int		ft_echo(char **cmd, t_env *env)
 {
 	char	**echo;
-	int 	i;
+	int		i;
 	t_env	*begin;
 
 	begin = env;
@@ -38,7 +38,8 @@ void	ft_echo(char **cmd, t_env *env)
 			env = env->next;
 		}
 		i++;
-		env = begin;		
+		env = begin;
 	}
-	ft_putchar('\n');	
+	ft_putchar('\n');
+	return (1);
 }
