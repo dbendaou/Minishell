@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/19 19:51:43 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/25 15:16:14 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,30 +98,32 @@ int		ft_compare(char **cmd, t_env **env)
 		return (my_env(*env));
 	if (ft_strncmp("echo", *cmd, 4) == 0)
 		return (ft_echo(cmd, *env));
-	if (ft_strncmp("./minishell", *cmd, 11) == 0)
+	if (ft_strncmp("./", *cmd, 2) == 0)
 		return (executable(cmd, env));
 	return (0);
 }
 
 /*
-**	Execute ./minishell
+**	Execute un executable \o/
 */
 
 int		executable(char **cmd, t_env **env)
 {
-	pid_t	father;
+	pid_t	 	father;
+	struct stat	filestat;
 
-	if (ft_strcmp("./minishell", *cmd) != 0)
-		ft_putstr(E_USAGE);
-	else
+	if (ft_strncmp("./", *cmd, 2) == 0)
 	{
-		father = fork();
-		if (father == 0)
-		{
-			execve("./minishell", cmd, get_envclean(*env));
+		if (stat(*cmd, &filestat) == 0 )//&& filestat.st_mode & S_IXUSR)
+		{	
+			father = fork();
+			if (father == 0)
+			{
+				execve(*cmd, cmd, get_envclean(*env));
+			}
+			else
+				wait(NULL);
 		}
-		else
-			wait(NULL);
 		return (1);
 	}
 	ft_strdel(cmd);

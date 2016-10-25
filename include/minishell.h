@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/19 19:32:03 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/23 17:52:16 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct		s_env
 /*
 **		ft_env.c
 */
-
 t_env				*ft_env(char **env);
 void				classic_append(t_env *to_add, t_env *begin);
 t_env				*new_maill(char *name, char *value);
@@ -102,12 +101,10 @@ int					ft_execmd(char **args, char *mix, int i, char **envclean);
 int					ft_compare(char **cmd, t_env **env);
 int					executable(char **cmd, t_env **env);
 void				ft_prompt(t_env *env, char **cmd);
-int					ln_check(char *cmd);
 
 /*
 **		get.c
 */
-
 char				*get_path(t_env *env);
 char				**get_envclean(t_env *env);
 char				*get_logname(t_env *env);
@@ -131,11 +128,11 @@ int					ft_echo(char **cmd, t_env *env);
 **		del.c
 */
 void				ft_strdel2(char **as, char **as2);
+void				list_free(t_env *begin);
 
 /*
 **		parser.c
 */
-
 int					ln_check(char *cmd);
 
 
