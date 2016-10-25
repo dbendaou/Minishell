@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/19 15:14:40 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/19 18:59:13 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/25 16:10:14 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		unset_env(t_env **begin, char **cmd)
 **	Creer l'environnement quand celui-ci est vide
 */
 
-t_env	*my_env_i()
+t_env	*my_env_i(void)
 {
 	t_env	*tmp;
 	t_env	*new;

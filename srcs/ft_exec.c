@@ -6,14 +6,14 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/25 15:16:14 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/25 16:15:29 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Split la commande au bon format
+**	Boucle infini ou la commande est verifie
 */
 
 void	ft_exec(t_env **env, char **cmd)
@@ -67,6 +67,7 @@ int		ft_execmd(char **args, char *mix, int i, char **envclean)
 			}
 			else
 				wait(NULL);
+			ft_strdel2(args, &mix);
 			return (1);
 		}
 		i++;
@@ -109,13 +110,13 @@ int		ft_compare(char **cmd, t_env **env)
 
 int		executable(char **cmd, t_env **env)
 {
-	pid_t	 	father;
+	pid_t		father;
 	struct stat	filestat;
 
 	if (ft_strncmp("./", *cmd, 2) == 0)
 	{
-		if (stat(*cmd, &filestat) == 0 )//&& filestat.st_mode & S_IXUSR)
-		{	
+		if (stat(*cmd, &filestat) == 0 && filestat.st_mode & S_IXUSR)
+		{
 			father = fork();
 			if (father == 0)
 			{

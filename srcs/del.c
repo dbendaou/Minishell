@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 13:24:32 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/23 17:51:48 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/25 16:15:52 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_strdel2(char **as, char **as2)
 **	Free une liste
 */
 
-void		list_free(t_env *begin)
+void	list_free(t_env *begin)
 {
 	t_env	*tmp;
 	t_env	*next;
