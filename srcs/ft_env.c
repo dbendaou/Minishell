@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:23:16 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/25 15:59:46 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/26 22:03:55 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_env	*ft_env(char **env)
 
 	tmp = ft_strsplit(env[0], '=');
 	z_env = new_maill(tmp[0], tmp[1]);
+	ft_freestrtab(&tmp);
 	i = 1;
 	while (env[i])
 	{
@@ -32,8 +33,8 @@ t_env	*ft_env(char **env)
 		new = new_maill(tmp[0], tmp[1]);
 		classic_append(new, z_env);
 		i++;
+		ft_freestrtab(&tmp);
 	}
-	ft_strdel(tmp);
 	return (z_env);
 }
 
@@ -91,6 +92,7 @@ void	lst_del(char *name, t_env **begin)
 	if (ft_strcmp(tmp->name, name) == 0)
 	{
 		*begin = tmp->next;
+		ft_strdel2(&tmp->name, &tmp->value);
 		free(tmp);
 		return ;
 	}
@@ -100,6 +102,7 @@ void	lst_del(char *name, t_env **begin)
 		if (ft_strcmp(tmp->name, name) == 0)
 		{
 			tmprev->next = tmp->next;
+			ft_strdel2(&tmp->name, &tmp->value);
 			free(tmp);
 			return ;
 		}

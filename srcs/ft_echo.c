@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/12 17:52:58 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/19 19:05:14 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/28 19:42:51 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,33 @@ int		ft_echo(char **cmd, t_env *env)
 	t_env	*begin;
 
 	begin = env;
-	i = 0;
+	i = 1;
 	echo = ft_strsplit(*cmd, ' ');
 	while (echo[i])
 	{
-		while (env && env->next)
+		if (echo[i][0] == '$')
 		{
-			if (ft_strcmp((*(echo + i) + 1), env->name) == 0 \
-				&& echo[i][0] == '$')
+			if ((begin = get_env((*(echo + i) + 1), env)))
 			{
-				ft_putstr(env->value);
-				ft_putchar(' ');
+				ft_putstr2(begin->value);
 			}
-			env = env->next;
 		}
+		else
+			ft_putstr2(echo[i]);
 		i++;
-		env = begin;
 	}
 	ft_putchar('\n');
+	ft_freestrtab(&echo);
+	ft_strdel(cmd);
 	return (1);
+}
+
+void	ft_putstr2(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		ft_putchar(str[i++]);
+	ft_putchar(' ');
 }

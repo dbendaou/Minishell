@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/19 15:14:40 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/25 16:10:14 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/28 19:14:56 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int		my_env(t_env *env)
 			ft_putstr("\n");
 			i++;
 		}
+		if (tmp != NULL)
+			ft_freestrtab(&tmp);
 	}
-	ft_strdel(tmp);
 	return (1);
 }
 
@@ -41,30 +42,23 @@ int		my_env(t_env *env)
 **	Ajoute une variable a l'environement
 */
 
-int		set_env(t_env *env, char **cmd)
+int		set_env(t_env **env, char **cmd)
 {
 	char	**tmp;
 	char	**tmpp;
 	t_env	*e_tmp;
 
-	e_tmp = env;
+	e_tmp = *env;
 	tmp = ft_strsplit(*cmd, ' ');
-	tmp++;
-	if ((tmpp = ft_strsplit(*tmp, '=')) && tmpp[1])
+	if ((tmpp = ft_strsplit(tmp[1], '=')) && tmpp[1])
 	{
-		while (e_tmp)
-		{
-			if (ft_strcmp(e_tmp->name, tmpp[0]) == 0)
-			{
-				e_tmp->value = tmpp[1];
-				ft_strdel2(tmp, tmpp);
-				return (1);
-			}
-			e_tmp = e_tmp->next;
-		}
-		classic_append(new_maill(tmpp[0], tmpp[1]), env);
-		ft_strdel2(tmp, tmpp);
+		if (get_env(tmpp[0], *env))
+			lst_del(tmpp[0], env);
+		classic_append(new_maill(tmpp[0], tmpp[1]), *env);
+		ft_freestrtab(&tmp);
+		ft_freestrtab(&tmpp);
 	}
+	ft_strdel(cmd);
 	return (1);
 }
 
@@ -81,6 +75,7 @@ int		unset_env(t_env **begin, char **cmd)
 	{
 		lst_del(tmp[1], begin);
 	}
+	ft_freestrtab(&tmp);
 	return (1);
 }
 
@@ -110,8 +105,8 @@ int		shlvl_plus(t_env **env)
 
 	tmp = get_env("SHLVL", *env);
 	i = ft_atoi(tmp->value);
-	i++;
 	ft_strdel(&tmp->value);
+	i++;
 	tmp->value = ft_itoa(i);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 16:54:36 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/25 16:14:30 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/28 19:27:18 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		main(int ac, char **av, char **env)
 		else
 		{
 			z_env = ft_env(env);
+			shlvl_plus(&z_env);
 			ft_exec(&z_env, &cmd);
 		}
 	}

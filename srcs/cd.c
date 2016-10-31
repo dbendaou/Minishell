@@ -6,14 +6,14 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/11 15:26:45 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/25 16:14:56 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/25 18:09:58 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	REPLACE_PATH : change le premier argument si present ds path par le 2eme
+**	change le premier argument si present ds path par le 2eme
 */
 
 int		replace_path(char *to_replace, char *to_add, char *path)
@@ -38,8 +38,8 @@ int		replace_path(char *to_replace, char *to_add, char *path)
 }
 
 /*
-**	PATH_CHECK : checke la validite des args envoyes a cd,
-**	notemment le path, droits et nb args. renvoie 0 ou le nberr
+**	checke la validite des args envoyes a cd, notemment le path,
+**	droits et nb args. renvoie 0 ou le nb d'erreur
 */
 
 int		path_check(char **args)
@@ -69,7 +69,7 @@ int		path_check(char **args)
 }
 
 /*
-**	CHANGE_WD : ouvre le directory designe
+**	ouvre le directory designe
 */
 
 int		change_wd(char *dir, int opt, t_env *env)
@@ -110,7 +110,7 @@ int		change_cdstr(char **args)
 }
 
 /*
-**	FT_CD : gestion generale du built_in cd
+**	gestion generale du built_in cd
 */
 
 int		cd(char **cmd, t_env *env)
@@ -129,6 +129,7 @@ int		cd(char **cmd, t_env *env)
 		change_wd(NULL, OPN_PREV, env);
 	else
 		change_wd(args[1], 0, env);
+	ft_freestrtab(&args);
 	if (edit_env(env) == 0)
 		return (0);
 	return (-1);

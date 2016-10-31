@@ -6,11 +6,15 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/07 18:24:08 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/25 15:59:17 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/10/28 19:41:37 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	Recupere le login
+*/
 
 char	*get_logname(t_env *env)
 {
@@ -25,12 +29,13 @@ char	*get_logname(t_env *env)
 		{
 			tmp = ft_strjoin("\033[34;1m", logname->value);
 			tmpp = ft_strjoin(tmp, "$> \033[36;1m");
-			free(tmp);
+			ft_strdel(&tmp);
 			return (tmpp);
 		}
 		logname = logname->next;
 	}
-	return ("\033[34;1mNO_USER$> \033[36;1m");
+	tmpp = ft_strjoin("", "\033[34;1mNO_USER$> \033[36;1m");
+	return (tmpp);
 }
 
 /*
@@ -40,15 +45,19 @@ char	*get_logname(t_env *env)
 char	*get_path(t_env *env)
 {
 	t_env	*path;
+	char	*tmp;
 
 	path = env;
 	while (path)
 	{
 		if (ft_strncmp(path->name, "PATH", 4) == 0)
-			return (path->value);
+		{
+			tmp = ft_strdup(path->value);
+			return (tmp);
+		}
 		path = path->next;
 	}
-	return ("NULL");
+	return (NULL);
 }
 
 /*
