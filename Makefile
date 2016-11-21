@@ -6,7 +6,7 @@
 #    By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/10 16:16:05 by dbendaou          #+#    #+#              #
-#    Updated: 2016/10/31 16:32:53 by dbendaou         ###   ########.fr        #
+#    Updated: 2016/11/07 19:03:52 by dbendaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ_PATH	=	objs
 
 CPPFLAGS	= 	-Iinclude
-CFLAGS 		=	-g -Wall -Wextra -Werror
+CFLAGS 		=	-Wall -Wextra -Werror
 LDFLAGS		=	-Llibft
 LDLIBS		=	-lft
 

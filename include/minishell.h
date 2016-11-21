@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 19:07:11 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/28 19:55:27 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/11/07 22:57:25 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int					ln_check(char *cmd);
 void				ft_exec_err(char **cmd);
 t_gitan				*gitan_init(void);
 void				line_cleaner(char **line);
+void				ft_freestrtab2(char ***tab1, char ***tab2);
 
 /*
 **		cd.c

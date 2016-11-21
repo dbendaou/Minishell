@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/14 03:46:34 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/28 19:46:57 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/11/07 22:56:06 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,10 @@ t_gitan		*gitan_init(void)
 	new->i = 0;
 	new->ret = 0;
 	return (new);
+}
+
+void		ft_freestrtab2(char ***tab1, char ***tab2)
+{
+	ft_freestrtab(tab1);
+	ft_freestrtab(tab2);
 }

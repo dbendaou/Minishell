@@ -6,7 +6,7 @@
 /*   By: dbendaou <dbendaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 18:50:38 by dbendaou          #+#    #+#             */
-/*   Updated: 2016/10/28 19:47:25 by dbendaou         ###   ########.fr       */
+/*   Updated: 2016/11/07 23:01:21 by dbendaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_exec(t_env **env, char **cmd)
 		gitan = gitan_init();
 		ft_prompt(*env, cmd);
 		tmp = get_path(*env);
-		if ((gitan->ret = ft_compare(cmd, env)) == 0 && tmp != NULL \
+		if ((gitan->ret = ft_compare(cmd, env)) == 0 && tmp != NULL
 			&& ln_check(*cmd) == 0)
 		{
 			args = ft_strsplit(*cmd, ' ');
@@ -97,14 +97,12 @@ int		ft_compare(char **cmd, t_env **env)
 		return (set_env(env, cmd));
 	if (ft_strncmp("unsetenv", *cmd, 8) == 0)
 		return (unset_env(env, cmd));
+	if (ft_strncmp("./", *cmd, 2) == 0 || ft_strncmp("/", *cmd, 1) == 0)
+		return (executable(cmd, env));
 	if (ft_strcmp("env", *cmd) == 0)
-	{
 		return (my_env(*env));
-	}
 	if (ft_strncmp("echo", *cmd, 4) == 0)
 		return (ft_echo(cmd, *env));
-	if (ft_strncmp("./", *cmd, 2) == 0)
-		return (executable(cmd, env));
 	return (0);
 }
 
@@ -117,26 +115,26 @@ int		executable(char **cmd, t_env **env)
 	pid_t		father;
 	struct stat	filestat;
 	char		**envclean;
+	char		**tmp;
 
 	envclean = get_envclean(*env);
-	if (stat(*cmd, &filestat) == 0 && filestat.st_mode & S_IXUSR)
+	tmp = ft_strsplit(*cmd, ' ');
+	if (stat(tmp[0], &filestat) == 0 && filestat.st_mode & S_IXUSR)
 	{
 		father = fork();
 		if (father == 0)
 		{
-			shlvl_plus(env);
-			execve(*cmd, cmd, envclean);
-			ft_freestrtab(&envclean);
-			return (1);
+			execve(tmp[0], tmp, envclean);
+			ft_freestrtab2(&envclean, &tmp);
+			exit(0);
 		}
 		else
 		{
 			ft_freestrtab(&envclean);
-			wait(NULL);
-			return (1);
+			return (wait(NULL));
 		}
 	}
-	ft_freestrtab(&envclean);
+	ft_freestrtab2(&tmp, &envclean);
 	ft_exec_err(cmd);
 	return (1);
 }
